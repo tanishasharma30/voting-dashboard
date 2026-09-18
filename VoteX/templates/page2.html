@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>VoteX - Fingerprint Verification</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+            font-family:
+                "Segoe UI",
+                Arial,
+                sans-serif;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 25px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #4b1c71,
+                    #6b21a8,
+                    #9333a9
+                );
+
+            color: #ffffff;
+
+            overflow-x: hidden;
+        }
+
+
+        /* =====================================================
+           MAIN CARD
+        ===================================================== */
+
+        .verification-card {
+
+            width: 100%;
+
+            max-width: 560px;
+
+            background: #ffffff;
+
+            color: #35253d;
+
+            border-radius: 25px;
+
+            padding: 45px 45px 40px;
+
+            text-align: center;
+
+            box-shadow:
+                0 25px 60px
+                rgba(0, 0, 0, 0.25);
+
+            animation:
+                cardAppear 0.7s ease;
+        }
+
+
+        /* =====================================================
+           BRAND
+        ===================================================== */
+
+        .brand {
+
+            color: #6a0dad;
+
+            font-size: 20px;
+
+            font-weight: 700;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 8px;
+        }
+
+
+        /* =====================================================
+           HEADING
+        ===================================================== */
+
+        h1 {
+
+            color: #302338;
+
+            font-size: 32px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .description {
+
+            color: #64748b;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+            margin-bottom: 32px;
+        }
+
+
+        /* =====================================================
+           FINGERPRINT ICON
+        ===================================================== */
+
+        .fingerprint-container {
+
+            width: 180px;
+
+            height: 180px;
+
+            margin: 0 auto 25px;
+
+            border-radius: 50%;
+
+            background: #f8f1fc;
+
+            border:
+                5px solid
+                #eadcf4;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            animation:
+                fingerprintPulse 2.5s
+                ease-in-out infinite;
+        }
+
+
+        .fingerprint {
+
+            width: 105px;
+
+            height: 125px;
+
+            position: relative;
+        }
+
+
+        .finger-line {
+
+            position: absolute;
+
+            border:
+                4px solid
+                #6a0dad;
+
+            border-bottom: none;
+
+            border-radius: 50%;
+
+            opacity: 0.9;
+        }
+
+
+        .line-1 {
+
+            width: 100px;
+            height: 120px;
+
+            left: 2px;
+            top: 2px;
+        }
+
+
+        .line-2 {
+
+            width: 82px;
+            height: 102px;
+
+            left: 11px;
+            top: 13px;
+        }
+
+
+        .line-3 {
+
+            width: 65px;
+            height: 82px;
+
+            left: 20px;
+            top: 24px;
+        }
+
+
+        .line-4 {
+
+            width: 48px;
+            height: 62px;
+
+            left: 29px;
+            top: 36px;
+        }
+
+
+        .line-5 {
+
+            width: 31px;
+            height: 43px;
+
+            left: 38px;
+            top: 48px;
+        }
+
+
+        .line-6 {
+
+            width: 15px;
+            height: 25px;
+
+            left: 46px;
+            top: 58px;
+        }
+
+
+        /* =====================================================
+           MESSAGE
+        ===================================================== */
+
+        .main-message {
+
+            color: #35253d;
+
+            font-size: 20px;
+
+            font-weight: 700;
+
+            margin-bottom: 7px;
+        }
+
+
+        .sub-message {
+
+            color: #64748b;
+
+            font-size: 13px;
+
+            margin-bottom: 22px;
+        }
+
+
+        /* =====================================================
+           DEMO BADGE
+        ===================================================== */
+
+        .demo-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding:
+                7px 13px;
+
+            border-radius: 20px;
+
+            background: #fff8e7;
+
+            border:
+                1px solid
+                #f2d58a;
+
+            color: #765b1c;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            margin-bottom: 20px;
+        }
+
+
+        .demo-dot {
+
+            width: 7px;
+
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #f59e0b;
+        }
+
+
+        /* =====================================================
+           VERIFY BUTTON
+        ===================================================== */
+
+        .verify-button {
+
+            width: 100%;
+
+            border: none;
+
+            border-radius: 13px;
+
+            padding: 16px;
+
+            background: #6a0dad;
+
+            color: #ffffff;
+
+            font-size: 16px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition:
+                background 0.25s ease,
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+
+        .verify-button:hover {
+
+            background: #580b91;
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 10px 25px
+                rgba(106, 13, 173, 0.25);
+        }
+
+
+        /* =====================================================
+           STATUS
+        ===================================================== */
+
+        .status {
+
+            display: none;
+
+            margin-top: 20px;
+
+            padding: 14px;
+
+            border-radius: 11px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+
+        .status.show {
+
+            display: block;
+        }
+
+
+        .status.success {
+
+            background: #f0fdf4;
+
+            border:
+                1px solid
+                #bbf7d0;
+
+            color: #166534;
+        }
+
+
+        .status.error {
+
+            background: #fff4f4;
+
+            border:
+                1px solid
+                #f0caca;
+
+            color: #a33a3a;
+        }
+
+
+        /* =====================================================
+           LOADING
+        ===================================================== */
+
+        .loading {
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            margin-top: 18px;
+
+            color: #6a0dad;
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+
+        .loading.show {
+
+            display: flex;
+        }
+
+
+        .spinner {
+
+            width: 17px;
+
+            height: 17px;
+
+            border:
+                2px solid
+                #e9d5ff;
+
+            border-top-color:
+                #6a0dad;
+
+            border-radius: 50%;
+
+            animation:
+                spin 0.8s linear infinite;
+        }
+
+
+        /* =====================================================
+           ANIMATIONS
+        ===================================================== */
+
+        @keyframes cardAppear {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(25px)
+                    scale(0.97);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+        }
+
+
+        @keyframes fingerprintPulse {
+
+            0%,
+            100% {
+
+                transform:
+                    scale(1);
+
+                box-shadow:
+                    0 0 0 0
+                    rgba(106, 13, 173, 0.10);
+            }
+
+            50% {
+
+                transform:
+                    scale(1.04);
+
+                box-shadow:
+                    0 0 0 12px
+                    rgba(106, 13, 173, 0);
+            }
+        }
+
+
+        @keyframes spin {
+
+            to {
+
+                transform:
+                    rotate(360deg);
+            }
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 600px) {
+
+            body {
+
+                padding: 15px;
+            }
+
+
+            .verification-card {
+
+                padding:
+                    35px 22px;
+            }
+
+
+            h1 {
+
+                font-size: 27px;
+            }
+
+
+            .fingerprint-container {
+
+                width: 155px;
+
+                height: 155px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         VERIFICATION CARD
+    ===================================================== -->
+
+    <div class="verification-card">
+
+
+        <div class="brand">
+            VoteX
+        </div>
+
+
+        <h1>
+            Fingerprint Verification
+        </h1>
+
+
+        <p class="description">
+
+            Verify your identity securely
+            before proceeding to vote.
+
+        </p>
+
+
+
+        <!-- =================================================
+             FINGERPRINT
+        ================================================== -->
+
+        <div class="fingerprint-container">
+
+
+            <div class="fingerprint">
+
+
+                <div class="finger-line line-1"></div>
+
+                <div class="finger-line line-2"></div>
+
+                <div class="finger-line line-3"></div>
+
+                <div class="finger-line line-4"></div>
+
+                <div class="finger-line line-5"></div>
+
+                <div class="finger-line line-6"></div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <div class="main-message">
+
+            Place your fingerprint on the sensor
+
+        </div>
+
+
+        <div class="sub-message">
+
+            Keep your finger steady while scanning.
+
+        </div>
+
+
+
+        <!-- =================================================
+             DEMO MODE
+        ================================================== -->
+
+        <div class="demo-badge">
+
+            <span class="demo-dot"></span>
+
+            DEMO MODE — Hardware not connected
+
+        </div>
+
+
+
+        <!-- =================================================
+             VERIFY BUTTON
+        ================================================== -->
+
+        <button
+            id="verifyButton"
+            class="verify-button"
+            onclick="verifyFingerprint()"
+        >
+
+            VERIFY FINGERPRINT
+
+        </button>
+
+
+
+        <!-- =================================================
+             LOADING
+        ================================================== -->
+
+        <div
+            id="loading"
+            class="loading"
+        >
+
+            <span class="spinner"></span>
+
+            Verifying fingerprint...
+
+        </div>
+
+
+
+        <!-- =================================================
+             STATUS
+        ================================================== -->
+
+        <div
+            id="status"
+            class="status"
+        ></div>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ===================================================== -->
+
+    <script>
+
+        function verifyFingerprint() {
+
+
+            const button =
+                document.getElementById(
+                    "verifyButton"
+                );
+
+
+            const loading =
+                document.getElementById(
+                    "loading"
+                );
+
+
+            const status =
+                document.getElementById(
+                    "status"
+                );
+
+
+            /* ---------------------------------------------
+               Reset previous status
+            --------------------------------------------- */
+
+            status.className = "status";
+
+            status.textContent = "";
+
+
+
+            /* ---------------------------------------------
+               Disable button
+            --------------------------------------------- */
+
+            button.disabled = true;
+
+            button.style.opacity = "0.6";
+
+
+
+            /* ---------------------------------------------
+               Show loading
+            --------------------------------------------- */
+
+            loading.classList.add("show");
+
+
+
+            /*
+             * DEMO ONLY
+             *
+             * For now, the browser sends a request to Flask.
+             *
+             * Flask checks the demo voter and creates the
+             * verified voter session.
+             *
+             * Later this endpoint will be connected to:
+             *
+             * ESP32 → R307 → CNN Liveness Detection
+             */
+
+            setTimeout(function() {
+
+                fetch("/demo_verify", {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+
+                })
+
+                .then(function(response) {
+
+                    return response.json()
+                        .then(function(data) {
+
+                            return {
+                                ok: response.ok,
+                                data: data
+                            };
+
+                        });
+
+                })
+
+                .then(function(result) {
+
+
+                    /* -------------------------------------
+                       SUCCESS
+                    ------------------------------------- */
+
+                    if (
+                        result.ok &&
+                        result.data.success
+                    ) {
+
+                        loading.classList.remove(
+                            "show"
+                        );
+
+
+                        status.className =
+                            "status success show";
+
+
+                        status.innerHTML =
+                            "✓ Fingerprint verified successfully.";
+
+
+                        /*
+                         * Give the voter a moment to see
+                         * the successful verification.
+                         */
+
+                        setTimeout(function() {
+
+                            window.location.href =
+                                "/vote";
+
+                        }, 900);
+
+                    }
+
+
+                    /* -------------------------------------
+                       VERIFICATION FAILED
+                    ------------------------------------- */
+
+                    else {
+
+                        loading.classList.remove(
+                            "show"
+                        );
+
+
+                        status.className =
+                            "status error show";
+
+
+                        status.textContent =
+                            result.data.message ||
+                            "Fingerprint verification failed.";
+
+
+                        button.disabled = false;
+
+                        button.style.opacity = "1";
+
+                    }
+
+                })
+
+
+                /* -----------------------------------------
+                   SERVER / CONNECTION ERROR
+                ----------------------------------------- */
+
+                .catch(function(error) {
+
+                    console.error(error);
+
+
+                    loading.classList.remove(
+                        "show"
+                    );
+
+
+                    status.className =
+                        "status error show";
+
+
+                    status.textContent =
+                        "Unable to connect to the voting server.";
+
+
+                    button.disabled = false;
+
+                    button.style.opacity = "1";
+
+                });
+
+            }, 1500);
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

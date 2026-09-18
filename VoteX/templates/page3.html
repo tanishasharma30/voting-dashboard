@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VoteSecure - Cast Your Vote</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background: linear-gradient(
+                135deg,
+                #6a0dad,
+                #8e44ad,
+                #b06ab3
+            );
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 25px;
+        }
+
+
+        /* =========================================
+           MAIN VOTING CARD
+        ========================================= */
+
+        .voting-card {
+            width: 100%;
+
+            max-width: 1250px;
+
+            background: white;
+
+            border-radius: 28px;
+
+            padding: 48px 55px;
+
+            box-shadow:
+                0 25px 60px rgba(0, 0, 0, 0.22);
+        }
+
+
+        /* =========================================
+           HEADER
+        ========================================= */
+
+        .header {
+            text-align: center;
+
+            margin-bottom: 38px;
+        }
+
+        .brand {
+            color: #6a0dad;
+
+            font-size: 20px;
+
+            font-weight: 700;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 8px;
+        }
+
+        .header h1 {
+            color: #29212f;
+
+            font-size: 36px;
+
+            font-weight: 700;
+
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #777;
+
+            font-size: 16px;
+        }
+
+
+        /* =========================================
+           SECTION TITLE
+        ========================================= */
+
+        .section-title {
+            text-align: center;
+
+            margin-bottom: 28px;
+        }
+
+        .section-title h2 {
+            color: #33243b;
+
+            font-size: 28px;
+
+            margin-bottom: 7px;
+        }
+
+        .section-title p {
+            color: #777;
+
+            font-size: 15px;
+        }
+
+
+        /* =========================================
+           GROUP GRID
+           ALL 4 GROUPS ON ONE ROW
+        ========================================= */
+
+        .group-grid {
+            display: grid;
+
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 22px;
+
+            margin-bottom: 28px;
+        }
+
+
+        /* =========================================
+           GROUP CARD
+        ========================================= */
+
+        .group-card {
+            position: relative;
+
+            border: 2px solid #e5dbea;
+
+            border-radius: 22px;
+
+            padding: 28px 24px;
+
+            cursor: pointer;
+
+            background: #ffffff;
+
+            min-height: 285px;
+
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                box-shadow 0.25s ease,
+                background 0.25s ease;
+        }
+
+
+        .group-card:hover {
+            border-color: #9b59b6;
+
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 12px 28px rgba(106, 13, 173, 0.14);
+        }
+
+
+        /* =========================================
+           SELECTED GROUP
+        ========================================= */
+
+        .group-card.selected {
+            border-color: #6a0dad;
+
+            background: #f8f1fc;
+
+            box-shadow:
+                0 12px 30px rgba(106, 13, 173, 0.18);
+        }
+
+
+        /* =========================================
+           RADIO CIRCLE
+        ========================================= */
+
+        .radio {
+            position: absolute;
+
+            top: 22px;
+
+            right: 22px;
+
+            width: 27px;
+
+            height: 27px;
+
+            border: 2px solid #c9b5d3;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: white;
+        }
+
+
+        .group-card.selected .radio {
+            border-color: #6a0dad;
+        }
+
+
+        .group-card.selected .radio::after {
+            content: "";
+
+            width: 13px;
+
+            height: 13px;
+
+            background: #6a0dad;
+
+            border-radius: 50%;
+        }
+
+
+        /* =========================================
+           GROUP SYMBOL
+        ========================================= */
+
+        .group-symbol {
+            width: 76px;
+
+            height: 76px;
+
+            border-radius: 19px;
+
+            background: #f0e5f7;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-size: 38px;
+
+            margin-bottom: 22px;
+        }
+
+
+        /* =========================================
+           GROUP NAME
+        ========================================= */
+
+        .group-card h3 {
+            color: #35253d;
+
+            font-size: 23px;
+
+            font-weight: 700;
+
+            margin-bottom: 9px;
+        }
+
+
+        .group-card p {
+            color: #777;
+
+            font-size: 15px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================================
+           CANDIDATE INFORMATION
+        ========================================= */
+
+        .candidate-info {
+            margin-top: 20px;
+
+            padding-top: 15px;
+
+            border-top: 1px solid #eadff0;
+        }
+
+
+        .candidate-info span {
+            display: block;
+
+            color: #777;
+
+            font-size: 12px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .candidate-info strong {
+            color: #4a3154;
+
+            font-size: 15px;
+
+            word-break: break-word;
+        }
+
+
+        /* =========================================
+           WARNING
+        ========================================= */
+
+        .warning {
+            background: #fff8e7;
+
+            border: 1px solid #f2d58a;
+
+            color: #765b1c;
+
+            border-radius: 13px;
+
+            padding: 14px 18px;
+
+            font-size: 14px;
+
+            text-align: center;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* =========================================
+           CAST BUTTON
+        ========================================= */
+
+        .cast-button {
+            width: 100%;
+
+            border: none;
+
+            border-radius: 14px;
+
+            padding: 17px;
+
+            background: #6a0dad;
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition:
+                background 0.25s ease,
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+
+        .cast-button:hover:not(:disabled) {
+            background: #580b91;
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 25px rgba(106, 13, 173, 0.25);
+        }
+
+
+        .cast-button:disabled {
+            background: #d7c9dd;
+
+            cursor: not-allowed;
+        }
+
+
+        /* =========================================
+           CONFIRMATION OVERLAY
+        ========================================= */
+
+        .modal-overlay {
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(34, 20, 40, 0.65);
+
+            display: none;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 20px;
+
+            z-index: 1000;
+        }
+
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+
+        /* =========================================
+           CONFIRMATION MODAL
+        ========================================= */
+
+        .modal {
+            width: 100%;
+
+            max-width: 450px;
+
+            background: white;
+
+            border-radius: 24px;
+
+            padding: 35px;
+
+            text-align: center;
+
+            box-shadow:
+                0 25px 65px rgba(0, 0, 0, 0.30);
+
+            animation: modalAppear 0.2s ease;
+        }
+
+
+        @keyframes modalAppear {
+
+            from {
+                opacity: 0;
+
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+
+                transform: scale(1);
+            }
+
+        }
+
+
+        /* =========================================
+           MODAL ICON
+        ========================================= */
+
+        .modal-icon {
+            width: 70px;
+
+            height: 70px;
+
+            border-radius: 50%;
+
+            background: #f0e5f7;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            margin: 0 auto 20px;
+
+            font-size: 32px;
+        }
+
+
+        .modal h2 {
+            color: #302338;
+
+            font-size: 25px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .modal p {
+            color: #777;
+
+            font-size: 15px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================================
+           SELECTED GROUP IN MODAL
+        ========================================= */
+
+        .selected-group-name {
+            color: #6a0dad;
+
+            font-size: 20px;
+
+            font-weight: 700;
+
+            margin: 16px 0;
+        }
+
+
+        /* =========================================
+           MODAL WARNING
+        ========================================= */
+
+        .modal-warning {
+            background: #fff4f4;
+
+            border: 1px solid #f0caca;
+
+            color: #a33a3a;
+
+            padding: 12px;
+
+            border-radius: 11px;
+
+            font-size: 13px;
+
+            margin-bottom: 23px;
+        }
+
+
+        /* =========================================
+           MODAL BUTTONS
+        ========================================= */
+
+        .modal-buttons {
+            display: flex;
+
+            gap: 13px;
+        }
+
+
+        .modal-buttons button {
+            flex: 1;
+
+            padding: 14px;
+
+            border-radius: 12px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+        }
+
+
+        .cancel-button {
+            background: white;
+
+            border: 1px solid #d7c9dd;
+
+            color: #5d4965;
+        }
+
+
+        .confirm-button {
+            background: #6a0dad;
+
+            border: 1px solid #6a0dad;
+
+            color: white;
+        }
+
+
+        .confirm-button:hover {
+            background: #580b91;
+        }
+
+
+        /* =========================================
+           TABLET
+        ========================================= */
+
+        @media (max-width: 1000px) {
+
+            .voting-card {
+                padding: 38px 30px;
+            }
+
+            .group-grid {
+                gap: 15px;
+            }
+
+            .group-card {
+                padding: 22px 17px;
+            }
+
+            .group-symbol {
+                width: 65px;
+
+                height: 65px;
+
+                font-size: 32px;
+            }
+
+            .group-card h3 {
+                font-size: 20px;
+            }
+
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 700px) {
+
+            body {
+                padding: 12px;
+            }
+
+
+            .voting-card {
+                padding: 30px 20px;
+
+                border-radius: 22px;
+            }
+
+
+            .header h1 {
+                font-size: 27px;
+            }
+
+
+            .section-title h2 {
+                font-size: 24px;
+            }
+
+
+            .group-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .group-card {
+                min-height: auto;
+
+                padding: 25px;
+            }
+
+
+            .modal-buttons {
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         MAIN VOTING CARD
+    ========================================== -->
+
+    <div class="voting-card">
+
+
+        <!-- HEADER -->
+
+        <div class="header">
+
+            <div class="brand">
+                VoteX
+            </div>
+
+
+            <h1>
+                Secure Digital Voting
+            </h1>
+
+
+            <p>
+                Your identity has been verified.
+                Please cast your vote.
+            </p>
+
+        </div>
+
+
+
+        <!-- =========================================
+             GROUP SELECTION
+        ========================================== -->
+
+        <div class="section-title">
+
+            <h2>
+                Select Your Group
+            </h2>
+
+
+            <p>
+                Choose one group to cast your vote.
+            </p>
+
+        </div>
+
+
+
+        <!-- =========================================
+             FOUR GROUPS
+        ========================================== -->
+
+        <div class="group-grid">
+
+
+            <!-- GROUP A -->
+
+            <div
+                class="group-card"
+                onclick="selectGroup(this, 'GROUP A')"
+            >
+
+                <div class="radio"></div>
+
+
+                <div class="group-symbol">
+                    ⭐
+                </div>
+
+
+                <h3>
+                    GROUP A
+                </h3>
+
+
+                <p>
+                    Candidate group A
+                </p>
+
+
+                <div class="candidate-info">
+
+                    <span>
+                        Candidate
+                    </span>
+
+
+                    <strong>
+                        Candidate Name
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- GROUP B -->
+
+            <div
+                class="group-card"
+                onclick="selectGroup(this, 'GROUP B')"
+            >
+
+                <div class="radio"></div>
+
+
+                <div class="group-symbol">
+                    🔥
+                </div>
+
+
+                <h3>
+                    GROUP B
+                </h3>
+
+
+                <p>
+                    Candidate group B
+                </p>
+
+
+                <div class="candidate-info">
+
+                    <span>
+                        Candidate
+                    </span>
+
+
+                    <strong>
+                        Candidate Name
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- GROUP C -->
+
+            <div
+                class="group-card"
+                onclick="selectGroup(this, 'GROUP C')"
+            >
+
+                <div class="radio"></div>
+
+
+                <div class="group-symbol">
+                    🤝
+                </div>
+
+
+                <h3>
+                    GROUP C
+                </h3>
+
+
+                <p>
+                    Candidate group C
+                </p>
+
+
+                <div class="candidate-info">
+
+                    <span>
+                        Candidate
+                    </span>
+
+
+                    <strong>
+                        Candidate Name
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- GROUP D -->
+
+            <div
+                class="group-card"
+                onclick="selectGroup(this, 'GROUP D')"
+            >
+
+                <div class="radio"></div>
+
+
+                <div class="group-symbol">
+                    🌟
+                </div>
+
+
+                <h3>
+                    GROUP D
+                </h3>
+
+
+                <p>
+                    Candidate group D
+                </p>
+
+
+                <div class="candidate-info">
+
+                    <span>
+                        Candidate
+                    </span>
+
+
+                    <strong>
+                        Candidate Name
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =========================================
+             WARNING
+        ========================================== -->
+
+        <div class="warning">
+
+            ⚠️ You can vote for only one group.
+            Once submitted, your vote cannot be changed.
+
+        </div>
+
+
+
+        <!-- =========================================
+             CAST BUTTON
+        ========================================== -->
+
+        <button
+            id="castButton"
+            class="cast-button"
+            disabled
+            onclick="openConfirmation()"
+        >
+
+            CAST MY VOTE
+
+        </button>
+
+
+    </div>
+
+
+
+    <!-- =========================================
+         CONFIRMATION POPUP
+    ========================================== -->
+
+    <div
+        id="confirmationModal"
+        class="modal-overlay"
+    >
+
+        <div class="modal">
+
+
+            <div class="modal-icon">
+                🗳️
+            </div>
+
+
+            <h2>
+                Confirm Your Vote
+            </h2>
+
+
+            <p>
+                You have selected:
+            </p>
+
+
+            <div
+                id="selectedGroupName"
+                class="selected-group-name"
+            >
+                GROUP A
+            </div>
+
+
+            <div class="modal-warning">
+
+                ⚠️ Your vote cannot be changed
+                after submission.
+
+            </div>
+
+
+            <div class="modal-buttons">
+
+
+                <button
+                    class="cancel-button"
+                    onclick="closeConfirmation()"
+                >
+                    CANCEL
+                </button>
+
+
+                <button
+                    id="confirmButton"
+                    class="confirm-button"
+                    onclick="confirmVote()"
+                >
+                    CONFIRM VOTE
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
+
+    <script>
+
+
+        // Currently selected group
+
+        let selectedGroup = null;
+
+
+
+        /*
+         * SELECT GROUP
+         *
+         * Only one group can be selected.
+         */
+
+        function selectGroup(card, groupName) {
+
+
+            // Remove selection from all cards
+
+            const allCards =
+                document.querySelectorAll(".group-card");
+
+
+            allCards.forEach(function(item) {
+
+                item.classList.remove("selected");
+
+            });
+
+
+
+            // Select clicked card
+
+            card.classList.add("selected");
+
+
+
+            // Store selected group
+
+            selectedGroup = groupName;
+
+
+
+            // Enable Cast Vote button
+
+            document.getElementById(
+                "castButton"
+            ).disabled = false;
+
+        }
+
+
+
+        /*
+         * OPEN CONFIRMATION POPUP
+         */
+
+        function openConfirmation() {
+
+
+            if (!selectedGroup) {
+                return;
+            }
+
+
+
+            // Show selected group
+
+            document.getElementById(
+                "selectedGroupName"
+            ).textContent = selectedGroup;
+
+
+
+            // Show popup
+
+            document.getElementById(
+                "confirmationModal"
+            ).classList.add("show");
+
+        }
+
+
+
+        /*
+         * CLOSE CONFIRMATION POPUP
+         */
+
+        function closeConfirmation() {
+
+            document.getElementById(
+                "confirmationModal"
+            ).classList.remove("show");
+
+        }
+
+
+
+        /*
+         * CONFIRM VOTE
+         *
+         * Sends the selected group to Flask.
+         *
+         * Flask will:
+         *
+         * 1. Check the verified voter session
+         * 2. Check that the voter has not already voted
+         * 3. Save the vote in SQLite
+         * 4. Mark the voter as having voted
+         * 5. Return a success response
+         */
+
+        function confirmVote() {
+
+
+            if (!selectedGroup) {
+                return;
+            }
+
+
+            const confirmButton =
+                document.getElementById(
+                    "confirmButton"
+                );
+
+
+            /*
+             * Prevent multiple clicks while the vote
+             * is being submitted.
+             */
+
+            confirmButton.disabled = true;
+
+            confirmButton.textContent =
+                "SUBMITTING...";
+
+
+            /*
+             * The page displays:
+             *
+             * GROUP A
+             * GROUP B
+             * GROUP C
+             * GROUP D
+             *
+             * But Flask expects:
+             *
+             * Group A
+             * Group B
+             * Group C
+             * Group D
+             *
+             * So we convert it here without changing
+             * anything visible on the page.
+             */
+
+            const databaseGroup =
+                selectedGroup
+                    .replace("GROUP A", "Group A")
+                    .replace("GROUP B", "Group B")
+                    .replace("GROUP C", "Group C")
+                    .replace("GROUP D", "Group D");
+
+
+            /*
+             * Send vote to Flask.
+             */
+
+            fetch("/submit_vote", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    group: databaseGroup
+                })
+
+            })
+
+
+            .then(function(response) {
+
+                return response.json()
+                    .then(function(data) {
+
+                        return {
+                            ok: response.ok,
+                            data: data
+                        };
+
+                    });
+
+            })
+
+
+            .then(function(result) {
+
+
+                /*
+                 * SUCCESS
+                 */
+
+                if (
+                    result.ok &&
+                    result.data.success
+                ) {
+
+                    /*
+                     * Go to the Flask success route.
+                     *
+                     * NOT page4.html
+                     */
+
+                    window.location.href =
+                        "/success";
+
+                }
+
+
+                /*
+                 * ERROR
+                 */
+
+                else {
+
+                    alert(
+                        result.data.message ||
+                        "Unable to record your vote."
+                    );
+
+
+                    /*
+                     * Allow the voter to try again
+                     * if the server rejected the request.
+                     */
+
+                    confirmButton.disabled = false;
+
+                    confirmButton.textContent =
+                        "CONFIRM VOTE";
+
+                }
+
+            })
+
+
+            /*
+             * SERVER / CONNECTION ERROR
+             */
+
+            .catch(function(error) {
+
+                console.error(error);
+
+
+                alert(
+                    "Unable to connect to the voting server."
+                );
+
+
+                confirmButton.disabled = false;
+
+                confirmButton.textContent =
+                    "CONFIRM VOTE";
+
+            });
+
+        }
+
+
+
+        /*
+         * CLOSE POPUP WHEN CLICKING OUTSIDE
+         */
+
+        document.getElementById(
+            "confirmationModal"
+        ).addEventListener(
+            "click",
+            function(event) {
+
+                if (event.target === this) {
+
+                    closeConfirmation();
+
+                }
+
+            }
+        );
+
+
+    </script>
+
+</body>
+</html>

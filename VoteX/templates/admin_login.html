@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VoteX Admin - Login</title>
+
+    <style>
+
+        /* =====================================================
+           BASIC RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+
+        body {
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    #4b1c71 0%,
+                    #6b21a8 48%,
+                    #9333a9 100%
+                );
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow-x: hidden;
+        }
+
+
+        /* =====================================================
+           BACKGROUND DECORATION
+        ===================================================== */
+
+        .background-circle {
+            position: fixed;
+
+            border-radius: 50%;
+
+            border: 1px solid rgba(255, 255, 255, 0.15);
+
+            pointer-events: none;
+        }
+
+
+        .circle-one {
+            width: 500px;
+            height: 500px;
+
+            left: -250px;
+            top: -200px;
+
+            animation: rotateCircle 20s linear infinite;
+        }
+
+
+        .circle-two {
+            width: 400px;
+            height: 400px;
+
+            right: -180px;
+            bottom: -180px;
+
+            border-style: dashed;
+
+            animation: rotateCircleReverse 16s linear infinite;
+        }
+
+
+        .circle-three {
+            width: 180px;
+            height: 180px;
+
+            right: 15%;
+            top: 10%;
+
+            opacity: 0.5;
+
+            animation: floatCircle 5s ease-in-out infinite;
+        }
+
+
+        /* =====================================================
+           LOGIN CARD
+        ===================================================== */
+
+        .login-card {
+
+            width: 460px;
+
+            padding: 45px 42px;
+
+            background: #ffffff;
+
+            border-radius: 24px;
+
+            text-align: center;
+
+            color: #4b1c71;
+
+            box-shadow:
+                0 25px 70px rgba(0, 0, 0, 0.28);
+
+            position: relative;
+
+            z-index: 5;
+
+            animation: cardAppear 0.7s ease;
+        }
+
+
+        /* =====================================================
+           LOCK ICON
+        ===================================================== */
+
+        .lock-container {
+
+            width: 100px;
+            height: 100px;
+
+            margin: 0 auto 25px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #f3e8ff;
+
+            animation: lockPulse 2.5s ease-in-out infinite;
+        }
+
+
+        .lock-icon {
+
+            font-size: 52px;
+
+            line-height: 1;
+        }
+
+
+        /* =====================================================
+           BRAND
+        ===================================================== */
+
+        .brand-name {
+
+            color: #6b21a8;
+
+            font-size: 22px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 8px;
+        }
+
+
+        /* =====================================================
+           HEADING
+        ===================================================== */
+
+        .login-card h1 {
+
+            font-size: 48px;
+
+            line-height: 1.1;
+
+            color: #292333;
+
+            font-weight: 750;
+
+            margin-bottom: 12px;
+        }
+
+
+        .description {
+
+            color: #64748b;
+
+            font-size: 15px;
+
+            margin-bottom: 30px;
+        }
+
+
+        /* =====================================================
+           ERROR MESSAGE
+        ===================================================== */
+
+        .error-message {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            padding: 13px 15px;
+
+            margin-bottom: 22px;
+
+            border-radius: 10px;
+
+            background: #fff1f2;
+
+            border: 1px solid #fecdd3;
+
+            color: #be123c;
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+
+        .error-icon {
+
+            width: 21px;
+            height: 21px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #e11d48;
+
+            color: #ffffff;
+
+            font-size: 12px;
+
+            font-weight: bold;
+        }
+
+
+        /* =====================================================
+           FORM
+        ===================================================== */
+
+        .login-form {
+
+            text-align: left;
+        }
+
+
+        .form-group {
+
+            margin-bottom: 22px;
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            margin-bottom: 9px;
+
+            color: #4b1c71;
+
+            font-size: 14px;
+
+            font-weight: 700;
+        }
+
+
+        .input-wrapper {
+
+            position: relative;
+        }
+
+
+        .input-icon {
+
+            position: absolute;
+
+            left: 17px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            color: #7e22ce;
+
+            font-size: 17px;
+
+            z-index: 2;
+        }
+
+
+        .form-group input {
+
+            width: 100%;
+
+            height: 56px;
+
+            padding: 0 17px 0 48px;
+
+            border: 2px solid #e2d5e9;
+
+            border-radius: 12px;
+
+            outline: none;
+
+            color: #292333;
+
+            font-size: 15px;
+
+            background: #ffffff;
+
+            transition: 0.3s;
+        }
+
+
+        .form-group input::placeholder {
+
+            color: #94a3b8;
+        }
+
+
+        .form-group input:focus {
+
+            border-color: #7e22ce;
+
+            box-shadow:
+                0 0 0 4px rgba(126, 34, 206, 0.10);
+        }
+
+
+        /* =====================================================
+           LOGIN BUTTON
+        ===================================================== */
+
+        .login-btn {
+
+            width: 100%;
+
+            height: 56px;
+
+            margin-top: 5px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    #6b21a8,
+                    #7e22ce
+                );
+
+            color: #ffffff;
+
+            font-size: 15px;
+
+            font-weight: 750;
+
+            letter-spacing: 0.3px;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 8px 22px rgba(107, 33, 168, 0.28);
+
+            transition: 0.3s;
+        }
+
+
+        .login-btn:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 28px rgba(107, 33, 168, 0.35);
+        }
+
+
+        .login-btn:active {
+
+            transform: translateY(0);
+        }
+
+
+        /* =====================================================
+           SECURITY NOTE
+        ===================================================== */
+
+        .security-note {
+
+            margin-top: 25px;
+
+            padding-top: 20px;
+
+            border-top: 1px solid #eee5f2;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            color: #64748b;
+
+            font-size: 11px;
+
+            line-height: 1.5;
+        }
+
+
+        .security-icon {
+
+            color: #16a34a;
+
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           ANIMATIONS
+        ===================================================== */
+
+        @keyframes cardAppear {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(35px)
+                    scale(0.96);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+        }
+
+
+        @keyframes lockPulse {
+
+            0%,
+            100% {
+
+                transform: scale(1);
+
+                box-shadow:
+                    0 0 0 0 rgba(126, 34, 206, 0.12);
+            }
+
+            50% {
+
+                transform: scale(1.04);
+
+                box-shadow:
+                    0 0 0 12px rgba(126, 34, 206, 0);
+            }
+        }
+
+
+        @keyframes rotateCircle {
+
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+
+        @keyframes rotateCircleReverse {
+
+            from {
+                transform: rotate(360deg);
+            }
+
+            to {
+                transform: rotate(0deg);
+            }
+        }
+
+
+        @keyframes floatCircle {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-18px);
+            }
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 550px) {
+
+            .login-card {
+
+                width: calc(100% - 35px);
+
+                padding: 35px 25px;
+            }
+
+
+            .login-card h1 {
+
+                font-size: 40px;
+            }
+
+
+            .lock-container {
+
+                width: 85px;
+                height: 85px;
+            }
+
+
+            .lock-icon {
+
+                font-size: 44px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- Background Decoration -->
+
+    <div class="background-circle circle-one"></div>
+    <div class="background-circle circle-two"></div>
+    <div class="background-circle circle-three"></div>
+
+
+    <!-- =====================================================
+         ADMIN LOGIN CARD
+    ====================================================== -->
+
+    <div class="login-card">
+
+
+        <!-- Lock -->
+
+        <div class="lock-container">
+
+            <div class="lock-icon">
+                🔐
+            </div>
+
+        </div>
+
+
+        <!-- Brand -->
+
+        <div class="brand-name">
+            VOTEX ADMIN
+        </div>
+
+
+        <!-- Heading -->
+
+        <h1>
+            Admin Login
+        </h1>
+
+
+        <!-- Description -->
+
+        <p class="description">
+            Sign in to access the voting dashboard.
+        </p>
+
+
+        <!-- =================================================
+             ERROR MESSAGE
+
+             Flask displays this only when login fails.
+        ================================================== -->
+
+        {% if error %}
+
+        <div class="error-message">
+
+            <span class="error-icon">
+                !
+            </span>
+
+            <span>
+                {{ error }}
+            </span>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- =================================================
+             LOGIN FORM
+        ================================================== -->
+
+        <form
+            class="login-form"
+            action="/admin/login"
+            method="POST"
+        >
+
+
+            <!-- Username -->
+
+            <div class="form-group">
+
+                <label for="username">
+                    Username
+                </label>
+
+                <div class="input-wrapper">
+
+                    <span class="input-icon">
+                        👤
+                    </span>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Enter admin username"
+                        required
+                        autocomplete="username"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- Password -->
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <div class="input-wrapper">
+
+                    <span class="input-icon">
+                        🔒
+                    </span>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter admin password"
+                        required
+                        autocomplete="current-password"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- Login -->
+
+            <button
+                type="submit"
+                class="login-btn"
+            >
+
+                LOGIN TO DASHBOARD
+
+            </button>
+
+
+        </form>
+
+
+        <!-- =================================================
+             SECURITY NOTE
+        ================================================== -->
+
+        <div class="security-note">
+
+            <span class="security-icon">
+                🔒
+            </span>
+
+            <span>
+                This area is restricted to authorized administrators only.
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>

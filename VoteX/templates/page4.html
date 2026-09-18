@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VoteX - Vote Successful</title>
+
+
+    <!-- =====================================================
+         STYLES
+    ====================================================== -->
+
+    <style>
+
+        /* =====================================================
+           BASIC RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+            font-family:
+                "Segoe UI",
+                Arial,
+                sans-serif;
+        }
+
+
+        body {
+            min-height: 100vh;
+
+            background: #ffffff;
+
+            color: #ffffff;
+
+            overflow-x: hidden;
+        }
+
+
+
+        /* =====================================================
+           NAVBAR
+        ====================================================== */
+
+        .navbar {
+
+            height: 75px;
+
+            padding: 0 7%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            /* Same purple theme as Pages 2 & 3 */
+
+            background: #6a0dad;
+        }
+
+
+        .logo {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            color: #ffffff;
+
+            font-size: 25px;
+
+            font-weight: 700;
+        }
+
+
+        .logo-icon {
+
+            width: 31px;
+
+            height: 31px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 7px;
+
+            background: #ffffff;
+
+            color: #6a0dad;
+
+            font-size: 18px;
+
+            font-weight: bold;
+        }
+
+
+        .navbar nav {
+
+            display: flex;
+
+            gap: 35px;
+        }
+
+
+        .navbar nav a {
+
+            color: #ffffff;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            opacity: 0.9;
+
+            transition: 0.3s;
+        }
+
+
+        .navbar nav a:hover {
+
+            color: #e9d5ff;
+
+            opacity: 1;
+        }
+
+
+
+        /* =====================================================
+           SUCCESS SECTION
+        ====================================================== */
+
+        .success-section {
+
+            min-height:
+                calc(100vh - 75px);
+
+            position: relative;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 50px 7%;
+
+            /* Same purple gradient used throughout */
+
+            background:
+                linear-gradient(
+                    120deg,
+                    #6a0dad 0%,
+                    #8e44ad 48%,
+                    #b06ab3 100%
+                );
+
+            overflow: hidden;
+        }
+
+
+
+        /* =====================================================
+           BACKGROUND CIRCLES
+        ====================================================== */
+
+        .bg-circle {
+
+            position: absolute;
+
+            border-radius: 50%;
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.15);
+
+            animation:
+                rotateCircle
+                18s
+                linear
+                infinite;
+        }
+
+
+        .circle-one {
+
+            width: 600px;
+
+            height: 600px;
+
+            left: -300px;
+
+            top: -250px;
+        }
+
+
+        .circle-two {
+
+            width: 450px;
+
+            height: 450px;
+
+            right: -180px;
+
+            bottom: -200px;
+
+            border-style: dashed;
+
+            animation-direction: reverse;
+        }
+
+
+        .circle-three {
+
+            width: 250px;
+
+            height: 250px;
+
+            right: 20%;
+
+            top: 8%;
+
+            animation-duration: 12s;
+        }
+
+
+
+        /* =====================================================
+           CENTER SUCCESS CONTENT
+        ====================================================== */
+
+        .success-content {
+
+            width: 460px;
+
+            padding: 40px 32px;
+
+            position: relative;
+
+            z-index: 10;
+
+            text-align: center;
+
+            background: #ffffff;
+
+            color: #4b1c71;
+
+            border-radius: 22px;
+
+            box-shadow:
+                0 25px 60px
+                rgba(0, 0, 0, 0.25);
+
+            animation:
+                cardAppear
+                0.8s
+                ease;
+        }
+
+
+
+        /* =====================================================
+           SUCCESS CHECK ICON
+        ====================================================== */
+
+        .success-icon {
+
+            width: 95px;
+
+            height: 95px;
+
+            margin: 0 auto 22px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            /* Green is intentionally retained
+               for successful verification */
+
+            background: #dcfce7;
+
+            border:
+                5px solid
+                #bbf7d0;
+
+            animation:
+                successPulse
+                2s
+                infinite;
+        }
+
+
+        .check-mark {
+
+            width: 65px;
+
+            height: 65px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #22c55e;
+
+            color: #ffffff;
+
+            font-size: 38px;
+
+            font-weight: bold;
+
+            animation:
+                checkPop
+                0.7s
+                ease;
+        }
+
+
+
+        /* =====================================================
+           THANK YOU
+        ====================================================== */
+
+        .success-content h1 {
+
+            font-size: 54px;
+
+            line-height: 1;
+
+            color: #6a0dad;
+
+            margin-bottom: 14px;
+
+            font-weight: 750;
+
+            animation:
+                thankYouAppear
+                1s
+                ease;
+        }
+
+
+
+        /* =====================================================
+           VOTE SUCCESS DESCRIPTION
+        ====================================================== */
+
+        .success-text {
+
+            font-size: 18px;
+
+            font-weight: 600;
+
+            color: #16a34a;
+
+            margin-bottom: 8px;
+
+            animation:
+                fadeUp
+                1s
+                ease;
+        }
+
+
+        .sub-text {
+
+            color: #64748b;
+
+            font-size: 14px;
+
+            margin-bottom: 24px;
+
+            animation:
+                fadeUp
+                1.2s
+                ease;
+        }
+
+
+
+        /* =====================================================
+           STATUS BOX
+        ====================================================== */
+
+        .status-box {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 10px;
+
+            padding: 14px;
+
+            margin-bottom: 25px;
+
+            border-radius: 10px;
+
+            background: #f0fdf4;
+
+            border:
+                1px solid
+                #bbf7d0;
+
+            color: #166534;
+
+            font-size: 13px;
+
+            animation:
+                fadeUp
+                1.3s
+                ease;
+        }
+
+
+        .status-icon {
+
+            width: 24px;
+
+            height: 24px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #22c55e;
+
+            color: #ffffff;
+
+            border-radius: 50%;
+
+            font-size: 12px;
+
+            flex-shrink: 0;
+        }
+
+
+
+        /* =====================================================
+           HOME BUTTON
+        ====================================================== */
+
+        .home-btn {
+
+            display: inline-block;
+
+            padding: 13px 30px;
+
+            border-radius: 27px;
+
+            background: #6a0dad;
+
+            color: #ffffff;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            box-shadow:
+                0 7px 18px
+                rgba(106, 13, 173, 0.25);
+
+            transition: 0.3s;
+
+            animation:
+                fadeUp
+                1.5s
+                ease;
+        }
+
+
+        .home-btn:hover {
+
+            background: #580b91;
+
+            transform: translateY(-3px);
+        }
+
+
+
+        /* =====================================================
+           ANIMATION AREA
+        ====================================================== */
+
+        .animation-area {
+
+            width: 280px;
+
+            height: 330px;
+
+            position: relative;
+
+            z-index: 5;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+
+        /* =====================================================
+           LEFT FINGERPRINT
+        ====================================================== */
+
+        .left-animation {
+
+            margin-right: 35px;
+        }
+
+
+        .scan-circle {
+
+            position: absolute;
+
+            width: 270px;
+
+            height: 270px;
+
+            border-radius: 50%;
+
+            border:
+                2px solid
+                rgba(34, 197, 94, 0.35);
+
+            animation:
+                scanPulse
+                2.5s
+                ease-in-out
+                infinite;
+        }
+
+
+        .fingerprint {
+
+            width: 165px;
+
+            height: 195px;
+
+            position: relative;
+
+            animation:
+                fingerprintPulse
+                2.5s
+                ease-in-out
+                infinite;
+        }
+
+
+        .finger-line {
+
+            position: absolute;
+
+            border:
+                4px solid
+                #86efac;
+
+            border-bottom: none;
+
+            border-radius: 50%;
+
+            opacity: 0.9;
+        }
+
+
+        .line-1 {
+
+            width: 155px;
+
+            height: 180px;
+
+            left: 5px;
+
+            top: 5px;
+        }
+
+
+        .line-2 {
+
+            width: 130px;
+
+            height: 155px;
+
+            left: 17px;
+
+            top: 20px;
+        }
+
+
+        .line-3 {
+
+            width: 105px;
+
+            height: 130px;
+
+            left: 30px;
+
+            top: 35px;
+        }
+
+
+        .line-4 {
+
+            width: 80px;
+
+            height: 105px;
+
+            left: 42px;
+
+            top: 50px;
+        }
+
+
+        .line-5 {
+
+            width: 53px;
+
+            height: 75px;
+
+            left: 56px;
+
+            top: 67px;
+        }
+
+
+        .line-6 {
+
+            width: 27px;
+
+            height: 43px;
+
+            left: 69px;
+
+            top: 84px;
+        }
+
+
+
+        /* =====================================================
+           VERIFIED BADGE
+        ====================================================== */
+
+        .verified-badge {
+
+            position: absolute;
+
+            right: 0;
+
+            bottom: 35px;
+
+            padding: 8px 14px;
+
+            border-radius: 20px;
+
+            background: #22c55e;
+
+            color: #ffffff;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            box-shadow:
+                0 8px 20px
+                rgba(34, 197, 94, 0.3);
+
+            animation:
+                badgeFloat
+                2s
+                ease-in-out
+                infinite;
+        }
+
+
+
+        /* =====================================================
+           RIGHT VOTING CARD
+        ====================================================== */
+
+        .right-animation {
+
+            margin-left: 35px;
+        }
+
+
+        .vote-card {
+
+            position: absolute;
+
+            width: 175px;
+
+            height: 115px;
+
+            padding: 18px;
+
+            background: #ffffff;
+
+            color: #6a0dad;
+
+            border-radius: 12px;
+
+            transform: rotate(8deg);
+
+            box-shadow:
+                0 15px 35px
+                rgba(0, 0, 0, 0.25);
+
+            animation:
+                floatingCard
+                3s
+                ease-in-out
+                infinite;
+        }
+
+
+        .card-top {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+
+        .check {
+
+            width: 22px;
+
+            height: 22px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #22c55e;
+
+            color: #ffffff;
+
+            border-radius: 5px;
+        }
+
+
+        .card-line {
+
+            width: 80%;
+
+            height: 6px;
+
+            margin-top: 14px;
+
+            border-radius: 5px;
+
+            background: #ddd6fe;
+        }
+
+
+        .card-line.short {
+
+            width: 55%;
+
+            margin-top: 8px;
+        }
+
+
+        .vote-box {
+
+            position: absolute;
+
+            right: 15px;
+
+            bottom: 13px;
+
+            width: 25px;
+
+            height: 25px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border:
+                2px solid
+                #22c55e;
+
+            color: #16a34a;
+
+            border-radius: 4px;
+
+            font-weight: bold;
+        }
+
+
+
+        /* =====================================================
+           FLOATING ICONS
+        ====================================================== */
+
+        .floating-icon {
+
+            position: absolute;
+
+            width: 45px;
+
+            height: 45px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                rgba(255, 255, 255, 0.15);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.3);
+
+            border-radius: 50%;
+
+            backdrop-filter: blur(5px);
+
+            font-size: 18px;
+        }
+
+
+        .icon-one {
+
+            left: 0;
+
+            top: 50px;
+
+            animation:
+                floatOne
+                3s
+                ease-in-out
+                infinite;
+        }
+
+
+        .icon-two {
+
+            right: 0;
+
+            bottom: 55px;
+
+            animation:
+                floatTwo
+                4s
+                ease-in-out
+                infinite;
+        }
+
+
+        .icon-three {
+
+            left: 30px;
+
+            bottom: 25px;
+
+            animation:
+                floatThree
+                3.5s
+                ease-in-out
+                infinite;
+        }
+
+
+
+        /* =====================================================
+           FOOTER
+        ====================================================== */
+
+        footer {
+
+            position: fixed;
+
+            bottom: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            padding: 9px;
+
+            text-align: center;
+
+            background:
+                rgba(106, 13, 173, 0.95);
+
+            color: #ffffff;
+
+            font-size: 11px;
+
+            z-index: 20;
+        }
+
+
+
+        /* =====================================================
+           ANIMATIONS
+        ====================================================== */
+
+        @keyframes cardAppear {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(35px)
+                    scale(0.95);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+        }
+
+
+        @keyframes thankYouAppear {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(20px)
+                    scale(0.9);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+        }
+
+
+        @keyframes fadeUp {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(15px);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+
+        @keyframes checkPop {
+
+            0% {
+
+                transform: scale(0);
+
+                opacity: 0;
+            }
+
+            70% {
+
+                transform: scale(1.2);
+            }
+
+            100% {
+
+                transform: scale(1);
+
+                opacity: 1;
+            }
+        }
+
+
+        @keyframes successPulse {
+
+            0%,
+            100% {
+
+                box-shadow:
+                    0 0 0 0
+                    rgba(34, 197, 94, 0.3);
+            }
+
+            50% {
+
+                box-shadow:
+                    0 0 0 15px
+                    rgba(34, 197, 94, 0);
+            }
+        }
+
+
+        @keyframes fingerprintPulse {
+
+            0%,
+            100% {
+
+                transform: scale(1);
+
+                opacity: 0.65;
+            }
+
+            50% {
+
+                transform: scale(1.08);
+
+                opacity: 1;
+            }
+        }
+
+
+        @keyframes scanPulse {
+
+            0% {
+
+                transform: scale(0.85);
+
+                opacity: 0.25;
+            }
+
+            50% {
+
+                transform: scale(1);
+
+                opacity: 0.8;
+            }
+
+            100% {
+
+                transform: scale(0.85);
+
+                opacity: 0.25;
+            }
+        }
+
+
+        @keyframes floatingCard {
+
+            0%,
+            100% {
+
+                transform:
+                    translateY(0)
+                    rotate(8deg);
+            }
+
+            50% {
+
+                transform:
+                    translateY(-18px)
+                    rotate(8deg);
+            }
+        }
+
+
+        @keyframes floatOne {
+
+            0%,
+            100% {
+
+                transform:
+                    translateY(0);
+            }
+
+            50% {
+
+                transform:
+                    translateY(-18px);
+            }
+        }
+
+
+        @keyframes floatTwo {
+
+            0%,
+            100% {
+
+                transform:
+                    translateY(0);
+            }
+
+            50% {
+
+                transform:
+                    translateY(18px);
+            }
+        }
+
+
+        @keyframes floatThree {
+
+            0%,
+            100% {
+
+                transform:
+                    translateY(0);
+            }
+
+            50% {
+
+                transform:
+                    translateY(-15px);
+            }
+        }
+
+
+        @keyframes badgeFloat {
+
+            0%,
+            100% {
+
+                transform:
+                    translateY(0);
+            }
+
+            50% {
+
+                transform:
+                    translateY(-10px);
+            }
+        }
+
+
+        @keyframes rotateCircle {
+
+            from {
+
+                transform:
+                    rotate(0deg);
+            }
+
+            to {
+
+                transform:
+                    rotate(360deg);
+            }
+        }
+
+
+
+        /* =====================================================
+           RESPONSIVE
+        ====================================================== */
+
+        @media (max-width: 1100px) {
+
+            .left-animation,
+            .right-animation {
+
+                display: none;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .navbar {
+
+                height: auto;
+
+                padding: 18px 25px;
+
+                flex-direction: column;
+
+                gap: 15px;
+            }
+
+
+            .navbar nav {
+
+                gap: 15px;
+            }
+
+
+            .navbar nav a {
+
+                font-size: 12px;
+            }
+
+
+            .success-section {
+
+                padding:
+                    40px
+                    20px
+                    70px;
+            }
+
+
+            .success-content {
+
+                width: 100%;
+
+                padding:
+                    30px
+                    20px;
+            }
+
+
+            .success-content h1 {
+
+                font-size: 42px;
+            }
+
+
+            .success-text {
+
+                font-size: 15px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <header class="navbar">
+
+
+        <div class="logo">
+
+            <span class="logo-icon">
+                ✓
+            </span>
+
+            <span>
+                VoteX
+            </span>
+
+        </div>
+
+
+        <nav>
+
+            <a href="#">
+                Home
+            </a>
+
+            <a href="#">
+                About
+            </a>
+
+            <a href="#">
+                Features
+            </a>
+
+            <a href="#">
+                Contact
+            </a>
+
+        </nav>
+
+
+    </header>
+
+
+
+    <!-- =====================================================
+         SUCCESS SECTION
+    ====================================================== -->
+
+    <section class="success-section">
+
+
+        <!-- BACKGROUND ANIMATION -->
+
+        <div class="bg-circle circle-one"></div>
+
+        <div class="bg-circle circle-two"></div>
+
+        <div class="bg-circle circle-three"></div>
+
+
+
+        <!-- =================================================
+             LEFT FINGERPRINT ANIMATION
+        ================================================== -->
+
+        <div class="animation-area left-animation">
+
+
+            <div class="scan-circle"></div>
+
+
+            <div class="fingerprint">
+
+                <div class="finger-line line-1"></div>
+
+                <div class="finger-line line-2"></div>
+
+                <div class="finger-line line-3"></div>
+
+                <div class="finger-line line-4"></div>
+
+                <div class="finger-line line-5"></div>
+
+                <div class="finger-line line-6"></div>
+
+            </div>
+
+
+            <div class="verified-badge">
+
+                ✓ Verified
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             CENTER SUCCESS CONTENT
+        ================================================== -->
+
+        <div class="success-content">
+
+
+            <!-- SUCCESS CHECK -->
+
+            <div class="success-icon">
+
+                <div class="check-mark">
+
+                    ✓
+
+                </div>
+
+            </div>
+
+
+
+            <!-- MAIN HEADING -->
+
+            <h1>
+
+                Thank You
+
+            </h1>
+
+
+
+            <!-- SUCCESS MESSAGE -->
+
+            <p class="success-text">
+
+                Vote Casted Successfully
+
+            </p>
+
+
+            <p class="sub-text">
+
+                Your vote has been securely recorded.
+
+            </p>
+
+
+
+            <!-- VOTING STATUS -->
+
+            <div class="status-box">
+
+                <span class="status-icon">
+
+                    ✓
+
+                </span>
+
+
+                <span>
+
+                    Your vote has been successfully submitted.
+
+                </span>
+
+            </div>
+
+
+
+            <!-- BACK TO HOME -->
+
+            <a
+                href="page1.html"
+                class="home-btn"
+            >
+
+                Back to Home
+
+            </a>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             RIGHT VOTING ANIMATION
+        ================================================== -->
+
+        <div class="animation-area right-animation">
+
+
+            <div class="vote-card">
+
+
+                <div class="card-top">
+
+                    <span>
+                        VOTE
+                    </span>
+
+
+                    <span class="check">
+
+                        ✓
+
+                    </span>
+
+                </div>
+
+
+                <div class="card-line"></div>
+
+                <div class="card-line short"></div>
+
+
+                <div class="vote-box">
+
+                    ✓
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- FLOATING ICONS -->
+
+            <div class="floating-icon icon-one">
+
+                ✓
+
+            </div>
+
+
+            <div class="floating-icon icon-two">
+
+                🔒
+
+            </div>
+
+
+            <div class="floating-icon icon-three">
+
+                ●
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer>
+
+        © 2026 VoteX — Secure Biometric Voting System
+
+    </footer>
+
+
+</body>
+
+</html>

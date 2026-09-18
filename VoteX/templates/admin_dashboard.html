@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>VoteX - Voting Dashboard</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+            font-family:
+                "Segoe UI",
+                Arial,
+                sans-serif;
+        }
+
+
+        /* =====================================================
+           BODY
+        ===================================================== */
+
+        body {
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    #4b1c71,
+                    #6b21a8,
+                    #9333a9
+                );
+
+            color: white;
+
+            overflow-x: hidden;
+        }
+
+
+        /* =====================================================
+           NAVBAR
+        ===================================================== */
+
+        .navbar {
+
+            height: 75px;
+
+            padding: 0 7%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            background: #4b1c71;
+
+            position: relative;
+
+            z-index: 10;
+        }
+
+
+        .logo {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            font-size: 25px;
+
+            font-weight: 700;
+        }
+
+
+        .logo-icon {
+
+            width: 38px;
+
+            height: 38px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 9px;
+
+            background: #ffffff;
+
+            color: #6b21a8;
+
+            font-size: 23px;
+
+            font-weight: bold;
+        }
+
+
+        .admin-info {
+
+            color: #ffffff;
+
+            font-size: 14px;
+        }
+
+
+        .admin-info strong {
+
+            color: #ffffff;
+        }
+
+
+        .logout-button {
+
+            padding: 10px 23px;
+
+            border-radius: 25px;
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.45);
+
+            background: transparent;
+
+            color: #ffffff;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            transition: 0.3s;
+        }
+
+
+        .logout-button:hover {
+
+            background: #ffffff;
+
+            color: #6b21a8;
+        }
+
+
+        /* =====================================================
+           DASHBOARD
+        ===================================================== */
+
+        .dashboard {
+
+            min-height:
+                calc(100vh - 75px);
+
+            position: relative;
+
+            padding:
+                50px 7% 90px;
+
+            overflow: hidden;
+        }
+
+
+        /* =====================================================
+           BACKGROUND CIRCLES
+        ===================================================== */
+
+        .bg-circle {
+
+            position: absolute;
+
+            border-radius: 50%;
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.13);
+
+            pointer-events: none;
+        }
+
+
+        .circle-one {
+
+            width: 600px;
+
+            height: 600px;
+
+            left: -330px;
+
+            top: -260px;
+        }
+
+
+        .circle-two {
+
+            width: 450px;
+
+            height: 450px;
+
+            right: -190px;
+
+            bottom: -210px;
+
+            border-style: dashed;
+        }
+
+
+        .circle-three {
+
+            width: 250px;
+
+            height: 250px;
+
+            right: 20%;
+
+            top: 8%;
+        }
+
+
+        /* =====================================================
+           PAGE HEADING
+        ===================================================== */
+
+        .page-heading {
+
+            position: relative;
+
+            z-index: 2;
+
+            margin-bottom: 30px;
+        }
+
+
+        .page-heading h1 {
+
+            font-size: 48px;
+
+            line-height: 1.1;
+
+            font-weight: 750;
+
+            margin-bottom: 10px;
+        }
+
+
+        .page-heading p {
+
+            color:
+                rgba(255, 255, 255, 0.82);
+
+            font-size: 16px;
+        }
+
+
+        /* =====================================================
+           TOTAL VOTES CARD
+        ===================================================== */
+
+        .total-card {
+
+            position: relative;
+
+            z-index: 2;
+
+            width: 100%;
+
+            background: #ffffff;
+
+            color: #35253d;
+
+            border-radius: 22px;
+
+            padding:
+                27px 32px;
+
+            margin-bottom: 28px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            box-shadow:
+                0 20px 45px
+                rgba(0, 0, 0, 0.18);
+        }
+
+
+        .total-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 20px;
+        }
+
+
+        .total-icon {
+
+            width: 70px;
+
+            height: 70px;
+
+            border-radius: 17px;
+
+            background: #f0e5f7;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: #6a0dad;
+
+            font-size: 37px;
+
+            font-weight: bold;
+        }
+
+
+        .total-label {
+
+            color: #64748b;
+
+            font-size: 14px;
+
+            margin-bottom: 4px;
+        }
+
+
+        .total-number {
+
+            color: #4b1c71;
+
+            font-size: 39px;
+
+            line-height: 1;
+
+            font-weight: 750;
+        }
+
+
+        /* =====================================================
+           LIVE RESULTS
+        ===================================================== */
+
+        .live-badge {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding:
+                9px 16px;
+
+            border-radius: 20px;
+
+            background: #f0fdf4;
+
+            border:
+                1px solid
+                #bbf7d0;
+
+            color: #15803d;
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+
+        .live-dot {
+
+            width: 8px;
+
+            height: 8px;
+
+            border-radius: 50%;
+
+            background: #22c55e;
+        }
+
+
+        /* =====================================================
+           GROUP GRID
+        ===================================================== */
+
+        .group-grid {
+
+            position: relative;
+
+            z-index: 2;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 22px;
+        }
+
+
+        /* =====================================================
+           GROUP CARD
+        ===================================================== */
+
+        .group-card {
+
+            position: relative;
+
+            background: #ffffff;
+
+            color: #35253d;
+
+            border-radius: 22px;
+
+            padding:
+                25px 24px 27px;
+
+            min-height: 320px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 18px 40px
+                rgba(0, 0, 0, 0.16);
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+
+        .group-card:hover {
+
+            transform:
+                translateY(-5px);
+
+            box-shadow:
+                0 25px 50px
+                rgba(0, 0, 0, 0.22);
+        }
+
+
+        /* =====================================================
+           ONLY CHANGE
+           OLD PURPLE STRIP → LIGHT PURPLE STRIP
+        ===================================================== */
+
+        .group-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 5px;
+
+            background: #eadcf4;
+        }
+
+
+        /* =====================================================
+           GROUP TOP
+        ===================================================== */
+
+        .group-top {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 21px;
+        }
+
+
+        /* =====================================================
+           GROUP SYMBOL
+        ===================================================== */
+
+        .group-symbol {
+
+            width: 64px;
+
+            height: 64px;
+
+            border-radius: 17px;
+
+            background: #f0e5f7;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 32px;
+        }
+
+
+        /* =====================================================
+           GROUP TAG
+        ===================================================== */
+
+        .group-tag {
+
+            padding:
+                6px 12px;
+
+            border-radius: 15px;
+
+            background: #faf5ff;
+
+            color: #7e22ce;
+
+            font-size: 11px;
+
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           GROUP NAME
+        ===================================================== */
+
+        .group-card h2 {
+
+            color: #35253d;
+
+            font-size: 25px;
+
+            font-weight: 750;
+
+            margin-bottom: 7px;
+        }
+
+
+        .group-description {
+
+            color: #64748b;
+
+            font-size: 13px;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* =====================================================
+           DIVIDER
+        ===================================================== */
+
+        .divider {
+
+            width: 100%;
+
+            height: 1px;
+
+            background: #eadff0;
+
+            margin-bottom: 22px;
+        }
+
+
+        /* =====================================================
+           VOTE COUNT
+        ===================================================== */
+
+        .vote-count {
+
+            display: flex;
+
+            align-items: baseline;
+
+            gap: 9px;
+        }
+
+
+        .count-number {
+
+            color: #6a0dad;
+
+            font-size: 46px;
+
+            line-height: 1;
+
+            font-weight: 750;
+        }
+
+
+        .count-label {
+
+            color: #64748b;
+
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           VOTE SHARE
+        ===================================================== */
+
+        .vote-share {
+
+            margin-top: 21px;
+        }
+
+
+        .share-label {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 7px;
+
+            color: #94a3b8;
+
+            font-size: 11px;
+        }
+
+
+        .share-bar {
+
+            width: 100%;
+
+            height: 8px;
+
+            border-radius: 10px;
+
+            background: #eee7f2;
+
+            overflow: hidden;
+        }
+
+
+        .share-fill {
+
+            height: 100%;
+
+            border-radius: 10px;
+
+            background: #8b5cf6;
+
+            transition:
+                width 0.5s ease;
+        }
+
+
+        /* =====================================================
+           INFORMATION BOX
+        ===================================================== */
+
+        .information-box {
+
+            position: relative;
+
+            z-index: 2;
+
+            margin-top: 28px;
+
+            background:
+                rgba(255, 255, 255, 0.95);
+
+            color: #475569;
+
+            border-radius: 18px;
+
+            padding:
+                20px 25px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            box-shadow:
+                0 15px 35px
+                rgba(0, 0, 0, 0.12);
+        }
+
+
+        .information-icon {
+
+            width: 44px;
+
+            height: 44px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background: #fff8e7;
+
+            color: #d97706;
+
+            font-size: 19px;
+        }
+
+
+        .information-text {
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+
+        .information-text strong {
+
+            color: #4b1c71;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        footer {
+
+            position: fixed;
+
+            bottom: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            padding: 9px;
+
+            text-align: center;
+
+            background:
+                rgba(75, 28, 113, 0.95);
+
+            color: #ffffff;
+
+            font-size: 11px;
+
+            z-index: 20;
+        }
+
+
+        /* =====================================================
+           TABLET
+        ===================================================== */
+
+        @media (max-width: 1100px) {
+
+            .group-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+
+                height: auto;
+
+                padding:
+                    18px 25px;
+
+                flex-wrap: wrap;
+
+                gap: 15px;
+            }
+
+
+            .logo {
+
+                font-size: 21px;
+            }
+
+
+            .admin-info {
+
+                order: 3;
+
+                width: 100%;
+
+                text-align: center;
+            }
+
+
+            .dashboard {
+
+                padding:
+                    35px 20px 80px;
+            }
+
+
+            .page-heading h1 {
+
+                font-size: 34px;
+            }
+
+
+            .page-heading p {
+
+                font-size: 14px;
+            }
+
+
+            .total-card {
+
+                padding: 21px;
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 18px;
+            }
+
+
+            .group-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .group-card {
+
+                min-height: 300px;
+            }
+
+
+            .information-box {
+
+                align-items: flex-start;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         BACKGROUND CIRCLES
+    ====================================================== -->
+
+    <div class="bg-circle circle-one"></div>
+
+    <div class="bg-circle circle-two"></div>
+
+    <div class="bg-circle circle-three"></div>
+
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <header class="navbar">
+
+
+        <div class="logo">
+
+            <span class="logo-icon">
+                ✓
+            </span>
+
+            <span>
+                VoteX
+            </span>
+
+        </div>
+
+
+        <div class="admin-info">
+
+            Administrator:
+
+            <strong>
+                {{ session.get('admin_username', 'admin') }}
+            </strong>
+
+        </div>
+
+
+        <a
+            href="/admin/logout"
+            class="logout-button"
+        >
+            LOGOUT
+        </a>
+
+
+    </header>
+
+
+
+    <!-- =====================================================
+         DASHBOARD
+    ===================================================== -->
+
+    <main class="dashboard">
+
+
+        <div class="page-heading">
+
+            <h1>
+                Voting Dashboard
+            </h1>
+
+            <p>
+                Monitor the live voting results of all four groups.
+            </p>
+
+        </div>
+
+
+
+        <!-- =================================================
+             TOTAL VOTES
+        ================================================== -->
+
+        <div class="total-card">
+
+
+            <div class="total-left">
+
+
+                <div class="total-icon">
+                    ✓
+                </div>
+
+
+                <div>
+
+                    <div class="total-label">
+                        TOTAL VOTES CAST
+                    </div>
+
+
+                    <div class="total-number">
+                        {{ total_votes | default(0) }}
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="live-badge">
+
+                <span class="live-dot"></span>
+
+                LIVE RESULTS
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             FOUR GROUP CARDS
+        ================================================== -->
+
+        <div class="group-grid">
+
+
+            <!-- ================= GROUP A ================= -->
+
+            <div class="group-card">
+
+                <div class="group-top">
+
+                    <div class="group-symbol">
+                        ⭐
+                    </div>
+
+                    <div class="group-tag">
+                        GROUP A
+                    </div>
+
+                </div>
+
+
+                <h2>
+                    GROUP A
+                </h2>
+
+
+                <p class="group-description">
+                    Current votes received
+                </p>
+
+
+                <div class="divider"></div>
+
+
+                <div class="vote-count">
+
+                    <span class="count-number">
+                        {{ group_a | default(0) }}
+                    </span>
+
+                    <span class="count-label">
+                        votes
+                    </span>
+
+                </div>
+
+
+                <div class="vote-share">
+
+                    <div class="share-label">
+
+                        <span>
+                            Vote share
+                        </span>
+
+                        <span>
+                            {{ group_a_percentage | default(0) }}%
+                        </span>
+
+                    </div>
+
+
+                    <div class="share-bar">
+
+                        <div
+                            class="share-fill"
+                            style="width: {{ group_a_percentage | default(0) }}%;"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= GROUP B ================= -->
+
+            <div class="group-card">
+
+                <div class="group-top">
+
+                    <div class="group-symbol">
+                        🔥
+                    </div>
+
+                    <div class="group-tag">
+                        GROUP B
+                    </div>
+
+                </div>
+
+
+                <h2>
+                    GROUP B
+                </h2>
+
+
+                <p class="group-description">
+                    Current votes received
+                </p>
+
+
+                <div class="divider"></div>
+
+
+                <div class="vote-count">
+
+                    <span class="count-number">
+                        {{ group_b | default(0) }}
+                    </span>
+
+                    <span class="count-label">
+                        votes
+                    </span>
+
+                </div>
+
+
+                <div class="vote-share">
+
+                    <div class="share-label">
+
+                        <span>
+                            Vote share
+                        </span>
+
+                        <span>
+                            {{ group_b_percentage | default(0) }}%
+                        </span>
+
+                    </div>
+
+
+                    <div class="share-bar">
+
+                        <div
+                            class="share-fill"
+                            style="width: {{ group_b_percentage | default(0) }}%;"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= GROUP C ================= -->
+
+            <div class="group-card">
+
+                <div class="group-top">
+
+                    <div class="group-symbol">
+                        🤝
+                    </div>
+
+                    <div class="group-tag">
+                        GROUP C
+                    </div>
+
+                </div>
+
+
+                <h2>
+                    GROUP C
+                </h2>
+
+
+                <p class="group-description">
+                    Current votes received
+                </p>
+
+
+                <div class="divider"></div>
+
+
+                <div class="vote-count">
+
+                    <span class="count-number">
+                        {{ group_c | default(0) }}
+                    </span>
+
+                    <span class="count-label">
+                        votes
+                    </span>
+
+                </div>
+
+
+                <div class="vote-share">
+
+                    <div class="share-label">
+
+                        <span>
+                            Vote share
+                        </span>
+
+                        <span>
+                            {{ group_c_percentage | default(0) }}%
+                        </span>
+
+                    </div>
+
+
+                    <div class="share-bar">
+
+                        <div
+                            class="share-fill"
+                            style="width: {{ group_c_percentage | default(0) }}%;"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= GROUP D ================= -->
+
+            <div class="group-card">
+
+                <div class="group-top">
+
+                    <div class="group-symbol">
+                        🌟
+                    </div>
+
+                    <div class="group-tag">
+                        GROUP D
+                    </div>
+
+                </div>
+
+
+                <h2>
+                    GROUP D
+                </h2>
+
+
+                <p class="group-description">
+                    Current votes received
+                </p>
+
+
+                <div class="divider"></div>
+
+
+                <div class="vote-count">
+
+                    <span class="count-number">
+                        {{ group_d | default(0) }}
+                    </span>
+
+                    <span class="count-label">
+                        votes
+                    </span>
+
+                </div>
+
+
+                <div class="vote-share">
+
+                    <div class="share-label">
+
+                        <span>
+                            Vote share
+                        </span>
+
+                        <span>
+                            {{ group_d_percentage | default(0) }}%
+                        </span>
+
+                    </div>
+
+
+                    <div class="share-bar">
+
+                        <div
+                            class="share-fill"
+                            style="width: {{ group_d_percentage | default(0) }}%;"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             ADMIN INFORMATION
+        ================================================== -->
+
+        <div class="information-box">
+
+
+            <div class="information-icon">
+                ⚠
+            </div>
+
+
+            <div class="information-text">
+
+                <strong>
+                    Admin information:
+                </strong>
+
+                The results displayed above are retrieved directly
+                from the VoteX database. Each successfully submitted
+                vote is counted only after the voting transaction is
+                completed.
+
+            </div>
+
+
+        </div>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer>
+
+        © 2026 VoteX — Secure Biometric Voting System
+
+    </footer>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VoteX - Secure Voting System</title>
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.css"
+        integrity="sha512-x9WwyMYBnlXMNQ6kQ/Lyzu1NqIhLQKL5Oq6xByfXuRj7s9CskyCbLv/1IjqzJmXwFXWr0ov6jBV7Qbc0hh9nHg=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    >
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+
+        body {
+            min-height: 100vh;
+            background: #ffffff;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+
+            height: 75px;
+
+            padding: 0 7%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            background: #6a0dad;
+        }
+
+
+        .logo {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            color: white;
+
+            font-size: 24px;
+
+            font-weight: 700;
+        }
+
+
+        .logo-icon {
+
+            width: 34px;
+
+            height: 34px;
+
+            background: white;
+
+            color: #6a0dad !important;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 8px;
+
+            font-size: 22px;
+
+            font-weight: 900;
+
+            line-height: 1;
+
+            box-shadow:
+                0 3px 10px rgba(0, 0, 0, 0.15);
+        }
+
+
+        .navbar nav {
+
+            display: flex;
+
+            gap: 35px;
+        }
+
+
+        .navbar nav a {
+
+            color: #ffffff;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            opacity: 0.9;
+
+            transition: 0.3s;
+        }
+
+
+        .navbar nav a:hover {
+
+            opacity: 1;
+
+            color: #e9d5ff;
+        }
+
+
+
+        /* =========================
+           HERO SECTION
+        ========================= */
+
+        .hero {
+
+            min-height: 600px;
+
+            display: flex;
+
+            align-items: center;
+
+            padding: 50px 7%;
+
+            background: linear-gradient(
+                120deg,
+                #6a0dad 0%,
+                #8e44ad 48%,
+                #b06ab3 100%
+            );
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+
+
+        /* =========================
+           LEFT CONTENT
+        ========================= */
+
+        .hero-content {
+
+            width: 52%;
+
+            z-index: 5;
+        }
+
+
+        .hero-content h1 {
+
+            font-size: 58px;
+
+            line-height: 1.08;
+
+            font-weight: 750;
+
+            margin-bottom: 25px;
+        }
+
+
+        .hero-content h1 span {
+
+            color: #e9d5ff;
+        }
+
+
+        .hero-content p {
+
+            max-width: 540px;
+
+            font-size: 17px;
+
+            line-height: 1.7;
+
+            color: #f3e8ff;
+
+            margin-bottom: 35px;
+        }
+
+
+
+        /* =========================
+           START VOTING BUTTON
+        ========================= */
+
+        .button-container {
+
+            width: 100%;
+
+            display: flex;
+
+            justify-content: flex-start;
+        }
+
+
+        .start-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 14px 30px;
+
+            border-radius: 30px;
+
+            background: #ffffff;
+
+            color: #6a0dad;
+
+            text-decoration: none;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.2);
+
+            transition: 0.3s;
+        }
+
+
+        .start-btn span {
+
+            width: 23px;
+
+            height: 23px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #6a0dad;
+
+            color: white;
+
+            border-radius: 50%;
+
+            font-size: 12px;
+        }
+
+
+        .start-btn:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 12px 30px rgba(0, 0, 0, 0.3);
+        }
+
+
+
+        /* =========================
+           RIGHT ANIMATION AREA
+        ========================= */
+
+        .animation-area {
+
+            width: 48%;
+
+            height: 480px;
+
+            position: relative;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+
+        /* =========================
+           BACKGROUND CIRCLES
+        ========================= */
+
+        .circle {
+
+            position: absolute;
+
+            border-radius: 50%;
+
+            border:
+                1px solid rgba(255, 255, 255, 0.15);
+        }
+
+
+        .circle-one {
+
+            width: 370px;
+
+            height: 370px;
+
+            animation:
+                rotateCircle 15s linear infinite;
+        }
+
+
+        .circle-two {
+
+            width: 280px;
+
+            height: 280px;
+
+            border-style: dashed;
+
+            animation:
+                rotateCircleReverse 12s linear infinite;
+        }
+
+
+
+        /* =========================
+           FINGERPRINT
+        ========================= */
+
+        .fingerprint {
+
+            position: absolute;
+
+            width: 190px;
+
+            height: 220px;
+
+            z-index: 3;
+
+            animation:
+                fingerprintPulse 2.5s ease-in-out infinite;
+        }
+
+
+        .finger-line {
+
+            position: absolute;
+
+            border: 4px solid #ffffff;
+
+            border-bottom: none;
+
+            border-radius: 50%;
+
+            opacity: 0.9;
+        }
+
+
+
+        /* Individual fingerprint curves */
+
+        .line-1 {
+
+            width: 175px;
+
+            height: 200px;
+
+            left: 8px;
+
+            top: 8px;
+        }
+
+
+        .line-2 {
+
+            width: 145px;
+
+            height: 175px;
+
+            left: 23px;
+
+            top: 25px;
+        }
+
+
+        .line-3 {
+
+            width: 115px;
+
+            height: 145px;
+
+            left: 38px;
+
+            top: 42px;
+        }
+
+
+        .line-4 {
+
+            width: 85px;
+
+            height: 110px;
+
+            left: 53px;
+
+            top: 60px;
+        }
+
+
+        .line-5 {
+
+            width: 55px;
+
+            height: 75px;
+
+            left: 68px;
+
+            top: 78px;
+        }
+
+
+        .line-6 {
+
+            width: 25px;
+
+            height: 40px;
+
+            left: 83px;
+
+            top: 95px;
+        }
+
+
+
+        /* =========================
+           VOTING CARD
+        ========================= */
+
+        .vote-card {
+
+            position: absolute;
+
+            width: 170px;
+
+            height: 110px;
+
+            right: 15px;
+
+            top: 70px;
+
+            padding: 18px;
+
+            background: #ffffff;
+
+            color: #6a0dad;
+
+            border-radius: 12px;
+
+            transform: rotate(8deg);
+
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, 0.25);
+
+            z-index: 5;
+
+            animation:
+                floatingCard 3s ease-in-out infinite;
+        }
+
+
+        .card-top {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+
+        .check {
+
+            width: 22px;
+
+            height: 22px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #6a0dad;
+
+            color: #ffffff;
+
+            border-radius: 5px;
+        }
+
+
+        .card-line {
+
+            width: 80%;
+
+            height: 6px;
+
+            margin-top: 14px;
+
+            border-radius: 5px;
+
+            background: #ddd6fe;
+        }
+
+
+        .card-line.short {
+
+            width: 55%;
+
+            margin-top: 8px;
+        }
+
+
+        .vote-box {
+
+            position: absolute;
+
+            bottom: 13px;
+
+            right: 15px;
+
+            width: 25px;
+
+            height: 25px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border:
+                2px solid #6a0dad;
+
+            color: #6a0dad;
+
+            border-radius: 4px;
+
+            font-weight: bold;
+        }
+
+
+
+        /* =========================
+           FLOATING ICONS
+        ========================= */
+
+        .floating-icon {
+
+            position: absolute;
+
+            width: 45px;
+
+            height: 45px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                rgba(255, 255, 255, 0.15);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.3);
+
+            border-radius: 50%;
+
+            backdrop-filter: blur(5px);
+
+            font-size: 18px;
+
+            z-index: 6;
+        }
+
+
+        .icon-one {
+
+            left: 25px;
+
+            top: 80px;
+
+            animation:
+                floatOne 3s ease-in-out infinite;
+        }
+
+
+        .icon-two {
+
+            right: 35px;
+
+            bottom: 80px;
+
+            animation:
+                floatTwo 4s ease-in-out infinite;
+        }
+
+
+        .icon-three {
+
+            left: 60px;
+
+            bottom: 100px;
+
+            animation:
+                floatThree 3.5s ease-in-out infinite;
+        }
+
+
+
+        /* =========================
+           FEATURES
+        ========================= */
+
+        .features {
+
+            color: #6a0dad;
+
+            padding: 28px 7%;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 25px;
+
+            background: #ffffff;
+        }
+
+
+        .feature {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            padding: 15px;
+
+            border-right:
+                1px solid #e9d5ff;
+        }
+
+
+        .feature:last-child {
+
+            border-right: none;
+        }
+
+
+        .feature-icon {
+
+            min-width: 45px;
+
+            height: 45px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #f3e8ff;
+
+            color: #6a0dad;
+
+            border-radius: 10px;
+
+            font-size: 20px;
+        }
+
+
+        .feature h3 {
+
+            font-size: 15px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .feature p {
+
+            color: #64748b;
+
+            font-size: 12px;
+
+            line-height: 1.5;
+        }
+
+
+
+        /* =========================
+           ANIMATIONS
+        ========================= */
+
+        @keyframes rotateCircle {
+
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+
+        }
+
+
+        @keyframes rotateCircleReverse {
+
+            from {
+                transform: rotate(360deg);
+            }
+
+            to {
+                transform: rotate(0deg);
+            }
+
+        }
+
+
+        @keyframes fingerprintPulse {
+
+            0%, 100% {
+
+                transform: scale(1);
+
+                opacity: 0.85;
+            }
+
+            50% {
+
+                transform: scale(1.08);
+
+                opacity: 1;
+            }
+
+        }
+
+
+        @keyframes floatingCard {
+
+            0%, 100% {
+
+                transform:
+                    translateY(0)
+                    rotate(8deg);
+            }
+
+            50% {
+
+                transform:
+                    translateY(-18px)
+                    rotate(8deg);
+            }
+
+        }
+
+
+        @keyframes floatOne {
+
+            0%, 100% {
+
+                transform:
+                    translateY(0);
+            }
+
+            50% {
+
+                transform:
+                    translateY(-20px);
+            }
+
+        }
+
+
+        @keyframes floatTwo {
+
+            0%, 100% {
+
+                transform:
+                    translateY(0);
+            }
+
+            50% {
+
+                transform:
+                    translateY(18px);
+            }
+
+        }
+
+
+        @keyframes floatThree {
+
+            0%, 100% {
+
+                transform:
+                    translateY(0);
+            }
+
+            50% {
+
+                transform:
+                    translateY(-15px);
+            }
+
+        }
+
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 850px) {
+
+            .navbar {
+
+                padding: 0 25px;
+            }
+
+
+            .navbar nav {
+
+                gap: 15px;
+            }
+
+
+            .hero {
+
+                flex-direction: column;
+
+                padding: 60px 25px;
+            }
+
+
+            .hero-content {
+
+                width: 100%;
+
+                text-align: center;
+            }
+
+
+            .hero-content p {
+
+                margin-left: auto;
+
+                margin-right: auto;
+            }
+
+
+            .animation-area {
+
+                width: 100%;
+
+                height: 400px;
+            }
+
+
+            .features {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .feature {
+
+                border-right: none;
+
+                border-bottom:
+                    1px solid #e9d5ff;
+            }
+
+        }
+
+
+
+        @media (max-width: 550px) {
+
+            .navbar {
+
+                height: auto;
+
+                padding: 18px;
+
+                flex-direction: column;
+
+                gap: 15px;
+            }
+
+
+            .navbar nav {
+
+                gap: 15px;
+            }
+
+
+            .hero-content h1 {
+
+                font-size: 42px;
+            }
+
+
+            .hero-content p {
+
+                font-size: 14px;
+            }
+
+
+            .animation-area {
+
+                transform: scale(0.8);
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVIGATION BAR
+    ========================= -->
+
+    <header class="navbar">
+
+        <div class="logo">
+
+            <span class="logo-icon">
+                <i class="fa-solid fa-check"></i>
+            </span>
+
+            <span>
+                VoteX
+            </span>
+
+        </div>
+
+
+        <nav>
+
+            <a href="#">
+                Home
+            </a>
+
+            <a href="#">
+                About
+            </a>
+
+            <a href="#">
+                Features
+            </a>
+
+            <a href="#">
+                Contact
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =========================
+         HERO SECTION
+    ========================= -->
+
+    <section class="hero">
+
+
+        <!-- LEFT CONTENT -->
+
+        <div class="hero-content">
+
+            <h1>
+
+                Secure Voting<br>
+
+                <span>
+                    System
+                </span>
+
+            </h1>
+
+
+            <p>
+
+                Secure Voting System using biometric
+                authentication with CNN based fingerprint
+                liveness detection.
+
+            </p>
+
+
+            <!-- START VOTING BUTTON -->
+
+            <div class="button-container">
+
+                <a
+                    href="page2.html"
+                    class="start-btn"
+                >
+
+                    <span>
+                        ✓
+                    </span>
+
+                    Start Voting
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             RIGHT ANIMATED SECTION
+        ========================= -->
+
+        <div class="animation-area">
+
+
+            <div class="circle circle-one"></div>
+
+            <div class="circle circle-two"></div>
+
+
+
+            <!-- FINGERPRINT -->
+
+            <div class="fingerprint">
+
+                <div class="finger-line line-1"></div>
+
+                <div class="finger-line line-2"></div>
+
+                <div class="finger-line line-3"></div>
+
+                <div class="finger-line line-4"></div>
+
+                <div class="finger-line line-5"></div>
+
+                <div class="finger-line line-6"></div>
+
+            </div>
+
+
+
+            <!-- VOTING CARD -->
+
+            <div class="vote-card">
+
+
+                <div class="card-top">
+
+                    <span>
+                        VOTE
+                    </span>
+
+                    <span class="check">
+                        ✓
+                    </span>
+
+                </div>
+
+
+                <div class="card-line"></div>
+
+                <div class="card-line short"></div>
+
+
+                <div class="vote-box">
+                    ✓
+                </div>
+
+
+            </div>
+
+
+
+            <!-- FLOATING SECURITY ICONS -->
+
+            <div class="floating-icon icon-one">
+                ✓
+            </div>
+
+
+            <div class="floating-icon icon-two">
+                🔒
+            </div>
+
+
+            <div class="floating-icon icon-three">
+                ●
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         BOTTOM FEATURES
+    ========================= -->
+
+    <section class="features">
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                🔐
+            </div>
+
+            <div>
+
+                <h3>
+                    Biometric Authentication
+                </h3>
+
+                <p>
+                    Secure fingerprint based voter verification.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                ✓
+            </div>
+
+            <div>
+
+                <h3>
+                    One Person One Vote
+                </h3>
+
+                <p>
+                    Prevents duplicate and unauthorized voting.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                ◉
+            </div>
+
+            <div>
+
+                <h3>
+                    CNN Liveness Detection
+                </h3>
+
+                <p>
+                    Detects live and spoof fingerprints.
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+</body>
+
+</html>
